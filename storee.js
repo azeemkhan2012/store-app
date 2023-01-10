@@ -51,23 +51,48 @@ const products = [
 ];
 
 const addToCart = (productId) => {
-  const product = products.find((product) => product.id === productId);
-
-  cartProducts.push({ ...product, quantity: 1 });
+  const productInCartIndex = cartProducts.findIndex(
+    (product) => product.id === productId
+  );
+  if (productInCartIndex >= 0) {
+    const productInCart = cartProducts[productInCartIndex];
+    cartProducts[productInCartIndex] = {
+      ...productInCart,
+      quantity: productInCart.quantity + 1,
+    };
+  } else {
+    const product = products.find((product) => product.id === productId);
+    cartProducts.push({ ...product, quantity: 1, cartId: Date.now() });
+  }
   displayCartlist();
 };
 
-const cartContent = ({ productImg, title, price }) => {
+const removeCartItem = (cartId) => {
+  
+  const productInCartIndex = cartProducts.findIndex(
+    (product) => product.cartId === cartId
+  );
+  if (productInCartIndex >= 0) {
+    cartProducts.splice(productInCartIndex, 1);
+    displayCartlist();
+  } else {
+   alert("Product Not Found")
+  }
+
+};
+
+const cartContent = ({ productImg, title, price, cartId, quantity }) => {
   return `
   <img src="${productImg}" alt="" class="cart-img">
   <div class="detail-box">
   		<div class="cart-product-title">${title}</div>
         <div class="cart-price">$${price}</div>
-        <>
+        <span><button>-</button>${quantity}<button>+</button></span>
     </div>
-    <i class='bx bxs-trash-alt cart-remove'></i>
+    <i class='bx bxs-trash-alt cart-remove' onclick = "removeCartItem(${cartId})";></i>
 `;
 };
+
 const displayCartlist = () => {
   let cartContentArea = document.getElementById("cart-content");
   let cartContentElements = "";
@@ -84,9 +109,7 @@ const shopProduct = ({ title, productImg, price, id }) => {
             <img src="${productImg}" alt="AdidasShirt" class="product-img">
             <h2 class="product-title">${title}</h2>
             <span class="price">$${price}</span>
-            <button onclick="addToCart('${id}');">
-              <i class='bx bx-shopping-bag add-cart'></i>
-            </button>  
+              <i class='bx bx-shopping-bag add-cart' onclick="addToCart('${id}');"></i>
     </div>`;
 };
 
