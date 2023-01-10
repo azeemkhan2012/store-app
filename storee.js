@@ -68,7 +68,6 @@ const addToCart = (productId) => {
 };
 
 const removeCartItem = (cartId) => {
-  
   const productInCartIndex = cartProducts.findIndex(
     (product) => product.cartId === cartId
   );
@@ -76,31 +75,60 @@ const removeCartItem = (cartId) => {
     cartProducts.splice(productInCartIndex, 1);
     displayCartlist();
   } else {
-   alert("Product Not Found")
+    alert("Product Not Found");
   }
-
+};
+const addRemoveCartQuantity = (add, cartId) => {
+  const productInCartIndex = cartProducts.findIndex(
+    (product) => product.cartId === cartId
+  );
+  const productInCart = cartProducts[productInCartIndex];
+  if (add) {
+    cartProducts[productInCartIndex] = {
+      ...productInCart,
+      quantity: productInCart.quantity + 1,
+    };
+  } else {
+    if (productInCart.quantity > 1) {
+      cartProducts[productInCartIndex] = {
+        ...productInCart,
+        quantity: productInCart.quantity - 1,
+      };
+    }
+  }
+  displayCartlist();
 };
 
 const cartContent = ({ productImg, title, price, cartId, quantity }) => {
   return `
+  <div class = "cart-box">
+  <div class="flex">
   <img src="${productImg}" alt="" class="cart-img">
+  <i class='bx bxs-trash-alt cart-remove' onclick = "removeCartItem(${cartId})";></i>
+</div>
   <div class="detail-box">
-  		<div class="cart-product-title">${title}</div>
-        <div class="cart-price">$${price}</div>
-        <span><button>-</button>${quantity}<button>+</button></span>
-    </div>
-    <i class='bx bxs-trash-alt cart-remove' onclick = "removeCartItem(${cartId})";></i>
-`;
+  <div class="cart-product-title">${title}</div>
+  <div class="flex">
+  <div class="cart-price">$${price}</div>
+        <span class = "cart-quantity">
+        <button class = "quantity-add-btn" onclick = "addRemoveCartQuantity(false, ${cartId});">-</button>${quantity}
+        <button class = "quantity-remove-btn" onclick = "addRemoveCartQuantity(true, ${cartId});">+</button></span>
+</div>`;
 };
 
 const displayCartlist = () => {
+  let cartTotal = document.getElementById("total-price");
   let cartContentArea = document.getElementById("cart-content");
   let cartContentElements = "";
+  let total = 0;
 
   cartProducts.forEach((item) => {
+    total += item.price * item.quantity;
     cartContentElements += cartContent(item);
   });
   cartContentArea.innerHTML = cartContentElements;
+  total = Math.round(total * 100) / 100;
+  cartTotal.innerHTML = `$${total}`;
 };
 
 const shopProduct = ({ title, productImg, price, id }) => {
@@ -124,6 +152,7 @@ shopContent.innerHTML = shopContentElements;
 let cartIcon = document.getElementById("cart-icon");
 let cart = document.getElementById("cart");
 let closeCart = document.getElementById("close-cart");
+let buybuttonClicked = document.getElementById("btn-buy");
 
 cartIcon.onclick = () => {
   cart.classList.add("active");
@@ -131,4 +160,15 @@ cartIcon.onclick = () => {
 
 closeCart.onclick = () => {
   cart.classList.remove("active");
+};
+
+buybuttonClicked.onclick = () => {
+  if (cartProducts.length > 0) {
+    cartProducts = [];
+    alert("Your Order Has Been Placed Successfully");
+  } else {
+    alert("Your Cart is Empty, Please Add items");
+  }
+
+  displayCartlist();
 };
