@@ -36,64 +36,21 @@
         </div>
     </header>
     <section class="shop container">
-        <h2 class="section-title">Shop products</h2>
+       <div class="categories"> 
+        <div class="section-title">Shop products</div>
+        <div class="">
+            <select  onchange="handleCategoryChange(event)" class="categories-dropdown" id="categories-dropdown">
+
+                <option class="options" value="All Categories" selected >All Categories </option>
+                <option value="cloths"> Men Clothes</option>
+                <option value="accessories"> Accessories </option>
+                <option value="shoes"> Men Shoes </option>
+                <option value="backPack"> BackPack </option>
+            </select>
+        </div> 
+    </div>
         <div class="shop-content" id="shop-content">
-            
-
-            <!-- <div class="product-box">
-                <img src="./img/product2.jpg" alt="EarBuds" class="product-img">
-                <h2 class="product-title">EARBUDS</h2>
-                <span class="price">$300</span>
-                <i class='bx bx-shopping-bag add-cart'></i>
-
-            </div>
-
-            <div class="product-box">
-                <img src="./img/product3.jpg" alt="AdidasHodd" class="product-img">
-                <h2 class="product-title">Adidas Hoddy</h2>
-                <span class="price">$500</span>
-                <i class='bx bx-shopping-bag add-cart'></i>
-
-            </div>
-
-            <div class="product-box">
-                <img src="./img/product4.jpg" alt="Bottle" class="product-img">
-                <h2 class="product-title">Metal Strow Bottle</h2>
-                <span class="price">$75</span>
-                <i class='bx bx-shopping-bag add-cart'></i>
-
-            </div>
-
-            <div class="product-box">
-                <img src="./img/product5.jpg" alt="Glasses" class="product-img">
-                <h2 class="product-title">Sunglasses</h2>
-                <span class="price">$15.04</span>
-                <i class='bx bx-shopping-bag add-cart'></i>
-
-            </div>
-
-            <div class="product-box">
-                <img src="./img/product6.jpg" alt="AdidasHat" class="product-img">
-                <h2 class="product-title">Adidas Hat</h2>
-                <span class="price">$7</span>
-                <i class='bx bx-shopping-bag add-cart'></i>
-
-            </div>
-
-            <div class="product-box">
-                <img src="./img/product7.jpg" alt="BackPack" class="product-img">
-                <h2 class="product-title">Adidas BackPack</h2>
-                <span class="price">$130</span>
-                <i class='bx bx-shopping-bag add-cart'></i>
-
-            </div>
-
-            <div class="product-box">
-                <img src="./img/product8.jpg" alt="AdidasShoe" class="product-img">
-                <h2 class="product-title">Running Shoes</h2>
-                <span class="price">$190</span>
-                <i class='bx bx-shopping-bag add-cart'></i>
-            </div> -->
+     
         </div>
     </section>
 
@@ -102,7 +59,7 @@
 
 
 
-    <!-- <script src = "store.js" ></script> -->
+    
     <script src = "storee.js" ></script>
 
 </body>

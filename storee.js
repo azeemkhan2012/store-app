@@ -1,52 +1,110 @@
+let categoryToDisplay = "All Categories";
 let cartProducts = [];
 const products = [
   {
-    title: "AdidasShirt",
+    title: "Adidas Shirt",
     productImg: "./img/product1.jpg",
     price: 75,
     id: "product1",
+    category: "cloths",
   },
   {
     title: "EARBUDS",
     productImg: "./img/product2.jpg",
     price: 300,
     id: "product2",
+    category: "accessories",
   },
   {
     title: "Adidas Hoddy",
     productImg: "./img/product3.jpg",
     price: 500,
     id: "product3",
+    category: "cloths",
   },
   {
     title: "Metal Strow Bottle",
     productImg: "./img/product4.jpg",
     price: 105,
     id: "product4",
+    category: "accessories",
   },
   {
     title: "Sunglasses",
     productImg: "./img/product5.jpg",
     price: 15.04,
     id: "product5",
+    category: "accessories",
   },
   {
     title: "Adidas Hat",
     productImg: "./img/product6.jpg",
     price: 7,
     id: "product6",
+    category: "accessories",
   },
   {
     title: "Adidas BackPack",
     productImg: "./img/product7.jpg",
     price: 130,
     id: "product7",
+    category: "backPack",
   },
   {
     title: "Running Shoes",
     productImg: "./img/product8.jpg",
     price: 190,
     id: "product8",
+    category: "shoes",
+  },
+  {
+    title: "Running Shoes",
+    productImg: "./img/product9.jpg",
+    price: 190,
+    id: "product9",
+    category: "shoes",
+  },
+  {
+    title: "Running Shoes",
+    productImg: "./img/product10.jpg",
+    price: 200,
+    id: "product10",
+    category: "shoes",
+  },
+  {
+    title: "Adidas BackPack",
+    productImg: "./img/product11.jpg",
+    price: 140,
+    id: "product11",
+    category: "backPack",
+  },
+  {
+    title: "Adidas BackPack",
+    productImg: "./img/product12.jpg",
+    price: 140,
+    id: "product12",
+    category: "backPack",
+  },
+  {
+    title: "Adidas Hat",
+    productImg: "./img/product13.jpg",
+    price: 10,
+    id: "product13",
+    category: "accessories",
+  },
+  {
+    title: "Adidas Hat",
+    productImg: "./img/product14.jpg",
+    price: 10,
+    id: "product14",
+    category: "accessories",
+  },
+  {
+    title: "Sunglasses",
+    productImg: "./img/product15.jpg",
+    price: 25,
+    id: "product15",
+    category: "accessories",
   },
 ];
 
@@ -141,13 +199,31 @@ const shopProduct = ({ title, productImg, price, id }) => {
     </div>`;
 };
 
-let shopContent = document.getElementById("shop-content");
-let shopContentElements = "";
-products.forEach((item) => {
-  shopContentElements += shopProduct(item);
-});
+const prductToDisplay = (categoryToDisplay) => {
+  let shopContent = document.getElementById("shop-content");
+  let shopContentElements = "";
+ 
+  if (categoryToDisplay === "All Categories") {
+    products.forEach((item) => {
+      shopContentElements += shopProduct(item);
+    });
+  } else {
+    let categoryProducts = products.filter(
+      (product) => product.category === categoryToDisplay
+    );
+    categoryProducts.forEach((item) => {
+      shopContentElements += shopProduct(item);
+    });
 
-shopContent.innerHTML = shopContentElements;
+  }
+
+  shopContent.innerHTML = shopContentElements;
+};
+
+function handleCategoryChange(e) {
+  categoryToDisplay = e.target.value;
+  prductToDisplay(categoryToDisplay);
+}
 
 let cartIcon = document.getElementById("cart-icon");
 let cart = document.getElementById("cart");
@@ -172,3 +248,5 @@ buybuttonClicked.onclick = () => {
 
   displayCartlist();
 };
+
+prductToDisplay(categoryToDisplay);
